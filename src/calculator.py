@@ -1,43 +1,68 @@
-def add(x, y):
-    return x + y
+def subtract(nums):
+    if len(nums) > 0:
+        return nums[0] - sum(nums[1:])
+    return
 
 
-def subtract(x, y):
-    return x - y
+def multiply(nums):
+    result = 1
+    for x in nums:
+        result = result * x
+    return result
+
+#
+# List comprehensions:
+# l2 and ls will be equal...
+#
+# l = [1,2,3]
+#
+# l2 = [elem*2 for elem in l]
+#
+#
+# ls = []
+# for elem in l:
+#     ls.append(elem*2)
 
 
-def multiply(x, y):
-    return x * y
+def calculator(command: str, *nums):
+    if command == "add":
+        nums_int = [int(elem) for elem in nums]
+        res = sum(nums_int)
+        return res
+    elif command == "sub":
+        nums_int = [int(elem) for elem in nums]
+        res = subtract(nums_int)
+        return res
+    elif command == "mul":
+        nums_int = [int(elem) for elem in nums]
+        res = multiply(nums_int)
+        return res
+    elif command == "test":
+        test()
+        return "Tests completed successfully!"
+    elif command == "exit":
+        print("Bye!")
+        quit()
+    else:
+        return "no valid command, try add, sub, or mul"
 
-
-def main(command: str, num1: int = None, num2: int = None):
-
-        if command == "add":
-            print(add(int(num1), int(num2)))
-        elif command == "sub":
-            print(subtract(int(num1), int(num2)))
-        elif command == "mul":
-            print(multiply(int(num1), int(num2)))
-        elif command == "test":
-            test()
-        elif command == "exit":
-            quit()
-        else:
-            print("no valid command, try add, sub, or mul")
+def main():
+    print("HALLSTEINS CALCULATOR")
+    print("---------------------")
+    while True:
+        user_input = input("Command: ")
+        arg_list = user_input.split()
+        output = calculator(*arg_list)
+        print(output)
 
 
 def test():
-    print("starting tests")
-    assert add(1, 2) == 3
-    assert subtract(5, 4) == 1
-    assert multiply(10, 100) == 1000
-    print("tests completed successfully")
+    assert calculator("add", 1, 2, 3, 4) == 10
+    assert calculator("sub", 1, 2, 3, 4) == -8
+    assert calculator("mul", 10, 100, 1000, 10000) == 10000000000
 
 
 if __name__ == "__main__":
-    while True:
-        user_input = input("Enter your command, only 2 numbers dumb ass: ")
-        arg_list = user_input.split()
-        main(*arg_list)
+    main()
 
 
